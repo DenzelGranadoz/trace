@@ -28,7 +28,7 @@ const TicketForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch("/api", {
+    const res = await fetch("/api/Tickets", {
       method: "POST",
       body: JSON.stringify({ formData }),
       "Content-Type": "application/json",
@@ -77,8 +77,8 @@ const TicketForm = () => {
           onChange={handleChange}
         >
           <option value="Study Next JS">Study</option>
-          <option value="Finish Project">Work</option>
-          <option value="Next Auth">LeetCode</option>
+          <option value="work">Work</option>
+          <option value="leetcode">LeetCode</option>
         </select>
         <label>Priority</label>
         <div>
