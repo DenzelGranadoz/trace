@@ -18,6 +18,10 @@ const DashBoard = async () => {
   const data = await getTickets();
   const tickets = data.tickets;
 
+  if (tickets.length < 1) {
+    return <p>Click on the Ticket Icon and create a ticket to get started</p>;
+  }
+
   const uniqueCategories = [
     ...new Set(tickets?.map(({ category }) => category)),
   ];

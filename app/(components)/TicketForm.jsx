@@ -63,8 +63,8 @@ const TicketForm = ({ ticket }) => {
         throw new Error("Failed to create Ticket.");
       }
     }
-    router.refresh();
     router.push("/");
+    router.refresh();
   };
 
   return (
@@ -101,9 +101,8 @@ const TicketForm = ({ ticket }) => {
           value={formData.category}
           onChange={handleChange}
         >
-          <option value="Study Next JS">Study</option>
+          <option value="study">Study</option>
           <option value="work">Work</option>
-          <option value="leetcode">LeetCode</option>
         </select>
         <label>Priority</label>
         <div>
