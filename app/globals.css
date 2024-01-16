@@ -26,6 +26,10 @@
     @apply text-sm text-default-text;
   }
 
+  a {
+    /* @apply underline font-bold */
+  }
+
   form {
     @apply rounded-xl p-4;
   }

@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome, faTicket } from "@fortawesome/free-solid-svg-icons";
+import { faHome, faTicket, faUserClock } from "@fortawesome/free-solid-svg-icons";
 
 const Nav = () => {
   return (
@@ -10,8 +10,11 @@ const Nav = () => {
         <Link href="/">
           <FontAwesomeIcon icon={faHome} className="icon" />
         </Link>
-        <Link href="/TicketPage/new">
+        <Link href="/TicketPage">
           <FontAwesomeIcon icon={faTicket} className="icon" />
+        </Link>
+        <Link href="/PomodoroPage">
+          <FontAwesomeIcon icon={faUserClock} className="icon" />
         </Link>
       </div>
       <div>
