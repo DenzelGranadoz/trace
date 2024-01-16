@@ -1,9 +1,16 @@
-import React from "react";
-import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome, faTicket, faUserClock } from "@fortawesome/free-solid-svg-icons";
+import React from 'react';
+import Link from 'next/link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faHome,
+  faTicket,
+  faUserClock,
+} from '@fortawesome/free-solid-svg-icons';
+import { getServerSession } from 'next-auth';
+import { options } from '../api/auth/[...nextauth]/options';
 
-const Nav = () => {
+const Nav = async () => {
+  const session = await getServerSession(options);
   return (
     <nav className="flex justify-between bg-nav p-4">
       <div className="flex items-center space-x-4">
@@ -18,7 +25,16 @@ const Nav = () => {
         </Link>
       </div>
       <div>
-        <p className="text-default-text">sampol@gmail.com</p>
+        {session ? (
+          <Link href="/api/auth/signout?callbackUrl=/" className="text-white">
+            Logout
+          </Link>
+        ) : (
+          <Link href="/api/auth/signin" className="text-white">
+            Login
+          </Link>
+        )}
+        {session && <p className="text-default-text">{session.user.email}</p>}
       </div>
     </nav>
   );

@@ -1,18 +1,24 @@
-import React from "react";
-import TicketCard from "../(components)/TicketCard";
-import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import React from 'react';
+import TicketCard from '../(components)/TicketCard';
+import Link from 'next/link';
+import { getServerSession } from 'next-auth';
+import { options } from '../api/auth/[...nextauth]/options';
+import { redirect } from 'next/navigation';
 
 const getTickets = async () => {
+  const session = await getServerSession(options);
+
+  if (!session) {
+    redirect('/api/auth/signin?callbackUrl=/TicketPage');
+  }
   try {
-    const res = await fetch("http://localhost:3000/api/Tickets", {
-      cache: "no-store",
+    const res = await fetch('http://localhost:3000/api/Tickets', {
+      cache: 'no-store',
     });
 
     return res.json();
   } catch (error) {
-    console.log("Failed to get tickets", error);
+    console.log('Failed to get tickets', error);
   }
 };
 
@@ -44,10 +50,10 @@ const DashBoard = async () => {
               </div>
             </div>
           ))}
-          <Link href="/TicketPage/new">
-            {/* <FontAwesomeIcon icon={faPlusCircle} className="icon"/> */} 
-          <button className="btn no-underline" >Add new Ticket</button>
-          </Link>
+        <Link href="/TicketPage/new">
+          {/* <FontAwesomeIcon icon={faPlusCircle} className="icon"/> */}
+          <button className="btn no-underline">Add new Ticket</button>
+        </Link>
       </div>
     </div>
   );
