@@ -1,14 +1,16 @@
-import TicketForm from "@/app/(components)/TicketForm";
-import React from "react";
+import TicketForm from '@/app/(components)/TicketForm';
+import { options } from '@/app/api/auth/[...nextauth]/options';
+import { getServerSession } from 'next-auth';
+import React from 'react';
 
 const getTicketById = async (id) => {
   try {
     const res = await fetch(`http://localhost:3000/api/Tickets/${id}`, {
-      cache: "no-store",
+      cache: 'no-store',
     });
 
     if (!res.ok) {
-      throw new Error("Failed to fetch topic");
+      throw new Error('Failed to fetch topic');
     }
 
     return res.json();
@@ -19,17 +21,18 @@ const getTicketById = async (id) => {
 
 let updateTicketData = {};
 const TicketPage = async ({ params }) => {
-  const EDITMODE = params.id === "new" ? false : true;
+  const EDITMODE = params.id === 'new' ? false : true;
+  const session = await getServerSession(options);
 
   if (EDITMODE) {
     updateTicketData = await getTicketById(params.id);
     updateTicketData = updateTicketData.foundTicket;
   } else {
     updateTicketData = {
-      _id: "new",
+      _id: 'new',
     };
   }
-  return <TicketForm ticket={updateTicketData} />;
+  return <TicketForm ticket={updateTicketData} session={session} />;
 };
 
 export default TicketPage;

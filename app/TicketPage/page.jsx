@@ -12,9 +12,15 @@ const getTickets = async () => {
     redirect('/api/auth/signin?callbackUrl=/TicketPage');
   }
   try {
-    const res = await fetch('http://localhost:3000/api/Tickets', {
-      cache: 'no-store',
-    });
+    console.log('sessh', session);
+    const { email } = session.user;
+
+    const res = await fetch(
+      `http://localhost:3000/api/Tickets/?email=${email}`,
+      {
+        cache: 'no-store',
+      }
+    );
 
     return res.json();
   } catch (error) {
@@ -26,22 +32,22 @@ const DashBoard = async () => {
   const data = await getTickets();
   const tickets = data.tickets;
 
-  if (tickets.length < 1) {
-    return <p>Click on the Ticket Icon and create a ticket to get started</p>;
-  }
+  // if (tickets.length < 1) {
+  //   return <p>Click on the Ticket Icon and create a ticket to get started</p>;
+  // }
 
   const uniqueCategories = [
     ...new Set(tickets?.map(({ category }) => category)),
   ];
 
   return (
-    <div className="p-5">
+    <div className='p-5'>
       <div>
         {tickets &&
           uniqueCategories?.map((category, idx) => (
-            <div key={idx} className="mb-4">
+            <div key={idx} className='mb-4'>
               <h2>{category}</h2>
-              <div className="lg:grid grid-cols-2 xl:grid-cols-4">
+              <div className='lg:grid grid-cols-2 xl:grid-cols-4'>
                 {tickets
                   .filter((ticket) => ticket.category === category)
                   .map((filteredTicket, _idx) => (
@@ -50,9 +56,9 @@ const DashBoard = async () => {
               </div>
             </div>
           ))}
-        <Link href="/TicketPage/new">
+        <Link href='/TicketPage/new'>
           {/* <FontAwesomeIcon icon={faPlusCircle} className="icon"/> */}
-          <button className="btn no-underline">Add new Ticket</button>
+          <button className='btn no-underline'>Add new Ticket</button>
         </Link>
       </div>
     </div>
