@@ -5,6 +5,7 @@ import User from '@/app/(models)/User';
 import bcrypt from 'bcrypt';
 
 export const options = {
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     GitHubProvider({
       profile(profile) {
