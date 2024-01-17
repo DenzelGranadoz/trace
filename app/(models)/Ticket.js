@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema } from 'mongoose';
 
 mongoose.connect(process.env.MONGODB_URI);
 mongoose.Promise = global.Promise;
@@ -9,8 +9,8 @@ const ticketSchema = new Schema(
     description: String,
     category: String,
     priority: Number,
-    progress: Number,
     status: String,
+    email: String,
     active: Boolean,
   },
   {
@@ -18,6 +18,6 @@ const ticketSchema = new Schema(
   }
 );
 
-const Ticket = mongoose.models.Ticket || mongoose.model("Ticket", ticketSchema);
+const Ticket = mongoose.models.Ticket || mongoose.model('Ticket', ticketSchema);
 
 export default Ticket;
