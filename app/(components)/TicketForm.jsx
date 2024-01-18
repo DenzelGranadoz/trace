@@ -102,6 +102,8 @@ const TicketForm = ({ ticket, session }) => {
         >
           <option value='study'>Study</option>
           <option value='work'>Work</option>
+          <option value='chores'>Chores</option>
+          <option value='others'>Others</option>
         </select>
         <label>Priority</label>
         <div>
@@ -133,12 +135,20 @@ const TicketForm = ({ ticket, session }) => {
           />
           <label>High</label>
         </div>
-        <label>Status</label>
-        <select name='status' value={formData.status} onChange={handleChange}>
-          <option value='not started'>Not Started</option>
-          <option value='started'>Started</option>
-          <option value='done'>Done</option>
-        </select>
+        {EDITMODE && (
+          <div>
+            <label>Status</label>
+            <select
+              name='status'
+              value={formData.status}
+              onChange={handleChange}
+            >
+              <option value='to do'>To Do</option>
+              <option value='in progress'>In Progress</option>
+              <option value='done'>Done</option>
+            </select>
+          </div>
+        )}
         <input
           type='submit'
           className='btn max-w-xs'
