@@ -12,7 +12,6 @@ const getTickets = async () => {
     redirect('/api/auth/signin?callbackUrl=/TicketPage');
   }
   try {
-    console.log('sessh', session);
     const { email } = session.user;
 
     const res = await fetch(
@@ -40,6 +39,8 @@ const DashBoard = async () => {
     ...new Set(tickets?.map(({ category }) => category)),
   ];
 
+  console.log(tickets.sort((a, b) => b.priority - a.priority));
+
   return (
     <div className='p-5'>
       <div>
@@ -50,6 +51,7 @@ const DashBoard = async () => {
               <div className='lg:grid grid-cols-2 xl:grid-cols-4'>
                 {tickets
                   .filter((ticket) => ticket.category === category)
+                  .sort((a, b) => b.priority - a.priority)
                   .map((filteredTicket, _idx) => (
                     <TicketCard id={_idx} key={_idx} ticket={filteredTicket} />
                   ))}
