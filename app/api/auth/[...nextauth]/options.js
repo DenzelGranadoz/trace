@@ -39,24 +39,21 @@ export const options = {
       clientSecret: process.env.GOOGLE_Secret,
     }),
     CredentialsProvider({
+      id: 'credentials',
       name: 'Credentials',
       credentials: {
         email: {
           label: 'email:',
           type: 'text',
-          placeholder: 'your-email',
         },
         password: {
           label: 'password:',
           type: 'password',
-          placeholder: 'your-password',
         },
       },
       async authorize(credentials) {
         try {
-          const foundUser = await User.findOne({ email: credentials.email })
-            .lean()
-            .exec();
+          const foundUser = await User.findOne({ email: credentials.email });
 
           if (foundUser) {
             console.log('User Exists');
@@ -71,12 +68,16 @@ export const options = {
 
               foundUser['role'] = 'Unverified Email';
               return foundUser;
+            } else {
+              throw new Error('Wrong password');
             }
+          } else {
+            throw new Error('User not found');
           }
         } catch (error) {
           console.log(error);
+          throw error;
         }
-        return null;
       },
     }),
   ],
@@ -88,6 +89,11 @@ export const options = {
     async session({ session, token }) {
       if (session?.user) session.user.role = token.role;
       return session;
+    },
+    async signIn({ user, token, account }) {
+      if (account?.provider == 'credentials') {
+        return true;
+      }
     },
   },
 };
