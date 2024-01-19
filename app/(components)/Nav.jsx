@@ -12,29 +12,29 @@ import { options } from '../api/auth/[...nextauth]/options';
 const Nav = async () => {
   const session = await getServerSession(options);
   return (
-    <nav className="flex justify-between bg-nav p-4">
-      <div className="flex items-center space-x-4">
-        <Link href="/">
-          <FontAwesomeIcon icon={faHome} className="icon" />
+    <nav className='flex justify-between bg-nav p-4'>
+      <div className='flex items-center space-x-4'>
+        <Link href='/'>
+          <FontAwesomeIcon icon={faHome} className='icon' />
         </Link>
-        <Link href="/TicketPage">
-          <FontAwesomeIcon icon={faTicket} className="icon" />
+        <Link href='/TicketPage'>
+          <FontAwesomeIcon icon={faTicket} className='icon' />
         </Link>
-        <Link href="/PomodoroPage">
-          <FontAwesomeIcon icon={faUserClock} className="icon" />
+        <Link href='/PomodoroPage'>
+          <FontAwesomeIcon icon={faUserClock} className='icon' />
         </Link>
       </div>
       <div>
         {session ? (
-          <Link href="/api/auth/signout?callbackUrl=/" className="text-white">
+          <Link href='/api/auth/signout?callbackUrl=/' className='text-white'>
             Logout
           </Link>
         ) : (
-          <Link href="/api/auth/signin" className="text-white">
+          <Link href='/Login' className='text-white'>
             Login
           </Link>
         )}
-        {session && <p className="text-default-text">{session.user.email}</p>}
+        {session && <p className='text-default-text'>{session.user.email}</p>}
       </div>
     </nav>
   );
