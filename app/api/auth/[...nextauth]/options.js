@@ -8,18 +8,6 @@ export const options = {
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
     GitHubProvider({
-      profile(profile) {
-        console.log('GH Profile: ', profile);
-
-        let userRole = 'Github User';
-        if (profile?.email == 'zelgranadoz@gmail.com') {
-          userRole = 'admin';
-        }
-        return {
-          ...profile,
-          role: userRole,
-        };
-      },
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_Secret,
     }),
@@ -93,6 +81,18 @@ export const options = {
     async signIn({ user, token, account }) {
       if (account?.provider == 'credentials') {
         return true;
+      }
+
+      if (account?.provider == 'github' || account?.provider == 'google') {
+        try {
+          const existingUser = await User.findOne({ email: user.email });
+          if (!existingUser) {
+            await User.create(user);
+          }
+          return true;
+        } catch (error) {
+          return false;
+        }
       }
     },
   },
