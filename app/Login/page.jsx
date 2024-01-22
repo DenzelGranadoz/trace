@@ -1,6 +1,6 @@
 'use client';
-import React, { useState } from 'react';
-import { signIn } from 'next-auth/react';
+import React, { useState, useEffect } from 'react';
+import { signIn, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -11,6 +11,15 @@ const Login = () => {
   });
   const [errorMessage, setErrorMessage] = useState('');
   const router = useRouter();
+
+  const { status: sessionStatus } = useSession();
+
+  useEffect(() => {
+    if (sessionStatus === 'authenticated') {
+      router.push('/');
+      router.refresh();
+    }
+  }, [sessionStatus, router]);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -56,73 +65,88 @@ const Login = () => {
   };
 
   return (
-    <div className='w-full h-full flex justify-center items-center bg-gray-200'>
-      <div className='lg:w-1/2 sm:w-3/4 xl:w-1/3  h-3/5 border p-20 flex flex-col justify-between bg-gray-100'>
+    <div className="w-full h-full flex justify-center items-center bg-gray-200">
+      <div className="lg:w-1/2 sm:w-3/4 xl:w-1/3  h-3/5 border p-20 flex flex-col justify-between bg-gray-100">
         <div>
-          <h1 className='text-center text-5xl text-slate-600'>Welcome Back</h1>
-          <h4 className='text-center text-slate-600'>
+          <h1 className="text-center text-5xl text-slate-600">Welcome Back</h1>
+          <h4 className="text-center text-slate-600">
             Please log in to continue
           </h4>
         </div>
         <form
-          className='flex flex-col align-center justify-center p-0'
+          className="flex flex-col align-center justify-center p-0"
           onSubmit={handleSubmit}
         >
-          <label className='mb-1.5 text-slate-600'>Email Address</label>
+          <label className="mb-1.5 text-slate-600">Email Address</label>
           <input
-            id='email'
-            name='email'
-            type='text'
-            placeholder='Email'
+            id="email"
+            name="email"
+            type="text"
+            placeholder="Email"
             onChange={handleChange}
             value={formData.email}
             required
-            className='block bg-gray-200 m-0 px-4 py-3 w-full rounded-none text-xl text-black focus:ring-green-500 focus:rounded-none'
+            className="block bg-gray-200 m-0 px-4 py-3 w-full rounded-none text-xl text-black focus:ring-green-500 focus:rounded-none"
           />
-          <label className='mb-1.5 text-slate-600'>Password</label>
+          <label className="mb-1.5 text-slate-600">Password</label>
           <input
-            id='password'
-            name='password'
-            type='password'
-            placeholder='Password'
+            id="password"
+            name="password"
+            type="password"
+            placeholder="Password"
             onChange={handleChange}
             value={formData.password}
             required
-            className='block bg-gray-200 m-0 px-4 py-3 w-full rounded-none text-xl text-black focus:ring-green-500 focus:rounded-none'
+            className="block bg-gray-200 m-0 px-4 py-3 w-full rounded-none text-xl text-black focus:ring-green-500 focus:rounded-none"
           />
 
-          <div className='w-full text-right mt-6 mb-3.5  flex justify-end '>
+          <div className="w-full text-right mt-6 mb-3.5  flex justify-end ">
             <Link
-              href='/Register'
-              className='text-blue-400 hover:text-slate-400'
+              href="/Register"
+              className="text-blue-400 hover:text-slate-400"
             >
               Forget password?
             </Link>
           </div>
           <input
-            type='submit'
-            value='Login'
-            className='m-0 p-3 w-full bg-blue-400 hover:bg-blue-100 hover:cursor-pointer'
+            type="submit"
+            value="Login"
+            className="m-0 p-3 w-full bg-blue-400 hover:bg-blue-100 hover:cursor-pointer"
           />
-          {errorMessage && <p className='text-red-400 my-2'>{errorMessage}</p>}
+          {errorMessage && <p className="text-red-400 my-2">{errorMessage}</p>}
         </form>
-        <div className='h-20 flex flex-col text-center'>
-          <p className='text-slate-600'>Or log in with:</p>
-          <div className='flex-1 flex pt-2'>
-            <button className='flex-1 border-white border bg-gray-400 hover:bg-gray-500'>
+        <div className="h-20 flex flex-col text-center">
+          <p className="text-slate-600">Or log in with:</p>
+          <div className="flex-1 flex pt-2">
+            <button
+              className="flex-1 border-white border bg-gray-400 hover:bg-gray-500"
+              onClick={() => {
+                signIn('github');
+              }}
+            >
               Github
             </button>
-            <button className='flex-1 border-white border bg-gray-400 hover:bg-gray-500'>
+            <button
+              className="flex-1 border-white border bg-gray-400 hover:bg-gray-500"
+              onClick={() => {
+                signIn('google');
+              }}
+            >
               Google
             </button>
-            <button className='flex-1 border-white border bg-gray-400 hover:bg-gray-500'>
+            <button
+              className="flex-1 border-white border bg-gray-400 hover:bg-gray-500"
+              onClick={() => {
+                signIn('discord');
+              }}
+            >
               Discord
             </button>
           </div>
         </div>
-        <div className='h-5 w-full flex justify-center '>
-          <span className='text-slate-600 mr-1'>No account yet?</span>
-          <Link href='/Register' className='text-blue-400 hover:text-slate-400'>
+        <div className="h-5 w-full flex justify-center ">
+          <span className="text-slate-600 mr-1">No account yet?</span>
+          <Link href="/Register" className="text-blue-400 hover:text-slate-400">
             Register Here
           </Link>
         </div>
