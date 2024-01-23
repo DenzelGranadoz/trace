@@ -9,7 +9,7 @@ const getTickets = async () => {
   const session = await getServerSession(options);
 
   if (!session) {
-    redirect('/api/auth/signin?callbackUrl=/TicketPage');
+    redirect('/Login?callbackUrl=/TicketPage');
   }
   try {
     const { email } = session.user;
@@ -42,13 +42,13 @@ const DashBoard = async () => {
   console.log(tickets.sort((a, b) => b.priority - a.priority));
 
   return (
-    <div className='p-5'>
+    <div className="p-5">
       <div>
         {tickets &&
           uniqueCategories?.map((category, idx) => (
-            <div key={idx} className='mb-4'>
+            <div key={idx} className="mb-4">
               <h2>{category}</h2>
-              <div className='lg:grid grid-cols-2 xl:grid-cols-4'>
+              <div className="lg:grid grid-cols-2 xl:grid-cols-4">
                 {tickets
                   .filter((ticket) => ticket.category === category)
                   .sort((a, b) => b.priority - a.priority)
@@ -58,9 +58,9 @@ const DashBoard = async () => {
               </div>
             </div>
           ))}
-        <Link href='/TicketPage/new'>
+        <Link href="/TicketPage/new">
           {/* <FontAwesomeIcon icon={faPlusCircle} className="icon"/> */}
-          <button className='btn no-underline'>Add new Ticket</button>
+          <button className="btn no-underline">Add new Ticket</button>
         </Link>
       </div>
     </div>
