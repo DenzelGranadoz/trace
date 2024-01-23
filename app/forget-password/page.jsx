@@ -1,0 +1,108 @@
+'use client';
+import React, { useState, useEffect } from 'react';
+import { signIn, useSession } from 'next-auth/react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
+const ForgetPassword = () => {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
+  const [errorMessage, setErrorMessage] = useState('');
+  const router = useRouter();
+
+  const { status: sessionStatus } = useSession();
+
+  useEffect(() => {
+    if (sessionStatus === 'authenticated') {
+      router.push('/');
+      router.refresh();
+    }
+  }, [sessionStatus, router]);
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    const name = e.target.name;
+
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const isValidEmail = (email) => {
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    return emailRegex.test(email);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { email } = formData;
+
+    if (!isValidEmail(email)) {
+      setErrorMessage('Email is Invalid');
+      return;
+    }
+
+    const res = await fetch('/api/forget-password', {
+      method: 'POST',
+      body: JSON.stringify({ formData }),
+      'content-type': 'application/json',
+    });
+
+    if (!res.ok) {
+      const response = await res.json();
+      setErrorMessage(response.message);
+    } else {
+      router.refresh();
+      router.push('/ForgetPassword');
+    }
+  };
+
+  return (
+    <div className="w-full h-full flex justify-center items-center bg-gray-200">
+      <div className="lg:w-1/2 sm:w-3/4 xl:w-1/3  h-3/5 border p-20 flex flex-col justify-between bg-gray-100">
+        <div>
+          <h1 className="text-center text-5xl text-slate-600">
+            Forget Password
+          </h1>
+        </div>
+        <form
+          className="flex flex-col align-center justify-center p-0"
+          onSubmit={handleSubmit}
+        >
+          <label className="mb-1.5 text-slate-600">Email Address</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="Email"
+            onChange={handleChange}
+            value={formData.email}
+            required
+            className="block bg-gray-200 m-0 px-4 py-3 w-full rounded-none text-xl text-black focus:ring-green-500 focus:rounded-none"
+          />
+          <input
+            type="submit"
+            value="Submit"
+            className="m-0 p-3 w-full bg-blue-400 hover:bg-blue-100 hover:cursor-pointer"
+          />
+          {errorMessage && <p className="text-red-400 my-2">{errorMessage}</p>}
+        </form>
+
+        <div className="h-5 w-full flex justify-center ">
+          <span className="text-slate-600 mr-1">Already have an account?</span>
+          <Link
+            href="/ForgetPassword"
+            className="text-blue-400 hover:text-slate-400"
+          >
+            ForgetPassword Here
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ForgetPassword;
