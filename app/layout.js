@@ -1,6 +1,6 @@
 import Nav from './(components)/Nav';
 import './globals.css';
-import { Inter } from 'next/font/google';
+import { Lato } from 'next/font/google';
 
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
@@ -8,7 +8,10 @@ import AuthProvider from './(components)/AuthProvider';
 
 config.autoAddCss = false;
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Lato({
+  subsets: ['latin'],
+  weight: ['100', '300', '400', '700', '900'],
+});
 
 export const metadata = {
   title: 'Trace',
