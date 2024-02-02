@@ -8,6 +8,7 @@ const Register = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    emailVerified: false,
     password: '',
   });
   const [errorMessage, setErrorMessage] = useState('');
@@ -62,47 +63,47 @@ const Register = () => {
     <>
       <form
         onSubmit={handleSubmit}
-        method='post'
-        className='flex flex-col gap-3 w-1/2'
+        method="post"
+        className="flex flex-col gap-3 w-1/2"
       >
         <h1>Register</h1>
         <label>Name</label>
         <input
-          id='name'
-          name='name'
+          id="name"
+          name="name"
           onChange={handleChange}
-          type='text'
+          type="text"
           required={true}
           value={formData.name}
-          className='m-2 bg-slate-400 rounded'
+          className="m-2 bg-slate-400 rounded"
         />
         <label>Email</label>
         <input
-          id='email'
-          name='email'
+          id="email"
+          name="email"
           onChange={handleChange}
-          type='text'
+          type="text"
           required={true}
           value={formData.email}
-          className='m-2 bg-slate-400 rounded'
+          className="m-2 bg-slate-400 rounded"
         />
         <label>Password</label>
         <input
-          id='password'
-          name='password'
-          type='password'
+          id="password"
+          name="password"
+          type="password"
           onChange={handleChange}
           required={true}
           value={formData.password}
-          className='m-2 bg-slate-400 rounded'
+          className="m-2 bg-slate-400 rounded"
         />
         <input
-          type='submit'
-          value='Register'
-          className='bg-blue-400 hover:bg-blue-100'
+          type="submit"
+          value="Register"
+          className="bg-blue-400 hover:bg-blue-100"
         />
       </form>
-      <p className='text-red-500'>{errorMessage}</p>
+      <p className="text-red-500">{errorMessage}</p>
     </>
   );
 };

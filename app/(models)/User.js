@@ -11,6 +11,9 @@ const userSchema = new Schema(
     password: { type: String, required: false },
     resetToken: String,
     resetTokenExpiry: Date,
+    activateToken: String,
+    activateTokenExpire: Date,
+    activatedAt: Date,
   },
   {
     timestamps: true,

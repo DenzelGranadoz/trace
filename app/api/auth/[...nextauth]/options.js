@@ -78,8 +78,11 @@ export const options = {
       if (session?.user) session.user.role = token.role;
       return session;
     },
-    async signIn({ user, token, account }) {
+    async signIn({ user, account }) {
       if (account?.provider == 'credentials') {
+        if (!user.emailVerified) {
+          return false;
+        }
         return true;
       }
 

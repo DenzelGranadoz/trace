@@ -15,7 +15,8 @@ const ResetPassword = ({ params }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const router = useRouter();
 
-  const { status: sessionStatus } = useSession();
+  const { status: sessionStatus, data: session } = useSession();
+  console.log('data', session);
 
   useEffect(() => {
     const verifyToken = async () => {
@@ -25,6 +26,7 @@ const ResetPassword = ({ params }) => {
           body: JSON.stringify({ token: params.token }),
           'content-type': 'application/json',
         });
+
         if (res.status === 400) {
           setErrorMessage('invalid token or has expired');
           setVerified(true);
@@ -33,7 +35,12 @@ const ResetPassword = ({ params }) => {
           setErrorMessage('');
           setVerified(true);
           const userData = await res.json();
+          console.log('getemail', userData.email);
           setUser(userData);
+          setFormData((prevState) => ({
+            ...prevState,
+            email: userData.email,
+          }));
         }
       } catch (error) {
         setErrorMessage('Error, try again');
@@ -65,7 +72,11 @@ const ResetPassword = ({ params }) => {
     // const { password } = formData;
     console.log('form', formData);
 
-    setFormData({ email: user?.email });
+    // setFormData((prevState) => ({
+    //   ...prevState,
+    //   email: user.email,
+    // }));
+    console.log(formData);
 
     const res = await fetch('/api/reset-password', {
       method: 'POST',
