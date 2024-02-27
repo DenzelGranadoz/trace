@@ -1,5 +1,5 @@
-import TicketForm from '@/app/(components)/TicketForm';
-import { options } from '@/app/api/auth/[...nextauth]/options';
+import TicketForm from '../../../components/TicketForm';
+import { options } from '../../api/auth/[...nextauth]/options';
 import { getServerSession } from 'next-auth';
 import React from 'react';
 

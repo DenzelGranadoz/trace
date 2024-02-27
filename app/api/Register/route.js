@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import User from '@/app/(models)/User';
+import User from '../../(models)/User';
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 import sgMail from '@sendgrid/mail';

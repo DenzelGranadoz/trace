@@ -1,5 +1,5 @@
 import React from 'react';
-import TicketCard from '../(components)/TicketCard';
+import TicketCard from '../../components/TicketCard';
 import Link from 'next/link';
 import { getServerSession } from 'next-auth';
 import { options } from '../api/auth/[...nextauth]/options';
