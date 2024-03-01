@@ -12,7 +12,7 @@ export const sideBarDetails: SideBarDetail = {
       id: 2,
       // icon: <ArchiveBoxIcon className="h-7 w-7 text-text-200" />,
       href: '/TicketPage',
-      label: 'New Ticket',
+      label: 'Ticket Page',
     },
     {
       id: 3,
