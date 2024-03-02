@@ -1,12 +1,8 @@
 import '../styles/globals.css';
 import { Lato } from 'next/font/google';
 
-import { config } from '@fortawesome/fontawesome-svg-core';
-import '@fortawesome/fontawesome-svg-core/styles.css';
-import AuthProvider from '../components/AuthProvider';
-import SideBar from '../components/Nav/SideBar';
-
-config.autoAddCss = false;
+import AuthProvider from '@/lib/AuthProvider';
+import SideBar from '@/components/Nav/SideBar';
 
 const inter = Lato({
   subsets: ['latin'],
