@@ -5,6 +5,7 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './containers/**/*.{js,ts,jsx,tsx,mdx}',
+    './utils/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
@@ -14,14 +15,8 @@ module.exports = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       colors: {
-        nav: '#18222f',
-        page: '#2b3441',
-        card: '#47566a',
-        'card-hover': '#4f5e74',
-        'default-text': '#f1f3f5',
         'blue-accent': '#0084d4',
         'blue-accent-hover': '#009fff',
-        'main-bg': '#55CCC9',
         accent: '#F1F1F1',
         low: '#42FB55',
         medium: '#90AD19',
