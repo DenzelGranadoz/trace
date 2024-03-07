@@ -1,25 +1,18 @@
 'use client';
-import React, { useState, useEffect } from 'react';
-import { signIn, useSession } from 'next-auth/react';
+
+import { isValidEmail } from '@/utils/regex';
+import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
 
-const Login = () => {
+const LoginSection = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
   const [errorMessage, setErrorMessage] = useState('');
-  const router = useRouter();
-
-  const { status: sessionStatus } = useSession();
-
-  useEffect(() => {
-    if (sessionStatus === 'authenticated') {
-      router.push('/');
-      router.refresh();
-    }
-  }, [sessionStatus, router]);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -31,27 +24,22 @@ const Login = () => {
     }));
   };
 
-  const isValidEmail = (email) => {
-    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-    return emailRegex.test(email);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { email, password } = formData;
 
-    if (!isValidEmail(email)) {
+    if (isValidEmail(email)) {
       setErrorMessage('Email is Invalid');
       return;
     }
 
     if (password.length < 8) {
-      setErrorMessage('Password invalid');
+      setErrorMessage('Password Invalid');
       return;
     }
 
     const res = await signIn('credentials', {
-      redirect: false,
+      // redirect: false,
       email,
       password,
     });
@@ -65,7 +53,7 @@ const Login = () => {
   };
 
   return (
-    <div className="w-full h-full flex justify-center items-center bg-gray-200">
+    <section className="w-full h-full flex justify-center items-center bg-gray-200">
       <div className="lg:w-1/2 sm:w-3/4 xl:w-1/3  h-3/5 border p-20 flex flex-col justify-between bg-gray-100">
         <div>
           <h1 className="text-center text-5xl text-slate-600">Welcome Back</h1>
@@ -75,6 +63,7 @@ const Login = () => {
         </div>
         <form
           className="flex flex-col align-center justify-center p-0"
+          method="post"
           onSubmit={handleSubmit}
         >
           <label className="mb-1.5 text-slate-600">Email Address</label>
@@ -151,8 +140,8 @@ const Login = () => {
           </Link>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
-export default Login;
+export default LoginSection;
