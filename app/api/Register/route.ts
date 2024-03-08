@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import User from '../../(models)/User';
+import User from '@/lib/models/User';
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 import sgMail from '@sendgrid/mail';
@@ -57,17 +57,18 @@ export async function POST(req) {
     sgMail
       .send(msg)
       .then(() => {
-        return new NextResponse(
-          { message: 'Reset Password email is sent!' },
-          { status: 200 }
-        );
+        const successResponse = {
+          message: 'Reset Password email is sent!',
+        };
+        const body = JSON.stringify(successResponse);
+        return new NextResponse(body, { status: 200 });
       })
       .catch(async (error) => {
-        userFound.resetToken = undefined;
-        userFound.resetTokenExpiry = undefined;
-        await userFound.save();
+        userData.resetToken = undefined;
+        userData.resetTokenExpiry = undefined;
+        await userData.save();
 
-        return new NextResponse.json(
+        return NextResponse.json(
           { message: 'Failed sending email', error },
           { status: 400 }
         );
@@ -80,7 +81,6 @@ export async function POST(req) {
       { status: 201 }
     );
   } catch (error) {
-    console.log(err);
     return NextResponse.json({ message: 'Error', error }, { status: 500 });
   }
 }
