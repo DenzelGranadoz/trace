@@ -34,7 +34,7 @@ const TicketPageSection: React.FC<TicketPageProps> = async ({ params }) => {
   }
 
   return (
-    <section className="container flex justify-center items-center">
+    <section className="rounded-xl w-full h-full bg-text-100 flex justify-center items-center">
       <TicketForm ticket={ticketData} editEnabled={editEnabled} />
     </section>
   );

@@ -53,7 +53,7 @@ const LoginSection = () => {
   };
 
   return (
-    <section className="w-full h-full flex justify-center items-center bg-gray-200">
+    <section className="rounded-xl bg-text-100 w-full h-full flex justify-center items-center">
       <div className="lg:w-1/2 sm:w-3/4 xl:w-1/3  h-3/5 border p-20 flex flex-col justify-between bg-gray-100">
         <div>
           <h1 className="text-center text-5xl text-slate-600">Welcome Back</h1>

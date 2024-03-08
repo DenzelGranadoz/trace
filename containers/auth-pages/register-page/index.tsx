@@ -60,10 +60,9 @@ const RegisterSection: React.FC<RegisterSectionProps> = () => {
       router.refresh();
     }
   };
-  // todo: input component
-  // redo login ogout register ui
+
   return (
-    <section className="container flex justify-center items-center w-full h-full">
+    <section className="rounded-xl bg-text-100 flex justify-center items-center w-full h-full">
       <form
         onSubmit={handleSubmit}
         method="post"
