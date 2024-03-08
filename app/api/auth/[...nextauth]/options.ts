@@ -1,16 +1,16 @@
 import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
-// import User from '@/app/(models)/User';
-import User from '../../../(models)/User';
+import User from '../../../../lib/models/User';
 import bcrypt from 'bcrypt';
 
 export const options = {
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
     GitHubProvider({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_Secret,
+      name: 'Github',
+      clientId: process.env.GITHUB_ID!,
+      clientSecret: process.env.GITHUB_SECRET,
     }),
     GoogleProvider({
       profile(profile) {
@@ -70,6 +70,10 @@ export const options = {
       },
     }),
   ],
+  pages: {
+    signIn: '/Login',
+    signOut: '/Logout',
+  },
   callbacks: {
     async jwt({ token, user }) {
       if (user) token.role = user.role;
