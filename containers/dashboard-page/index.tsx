@@ -13,15 +13,19 @@ const DashBoard = async () => {
   const tickets: TicketDetails[] = data.tickets || [];
 
   return (
-    <section className="container h-full flex flex-col">
-      <div className="flex justify-between px-10 py-6 border-b-2 border-black">
-        <h4 className="border border-black">
-          Welcome Back, {session.user.name}
-        </h4>
+    <section className="rounded-xl bg-text-100 w-full h-full flex flex-col">
+      <div className="flex justify-between px-10 py-6 border-b-2 border-text-200">
+        <h4 className="">Hi {session.user.name}, welcome back</h4>
         <p className="border border-black">search bar component</p>
       </div>
       <div className="flex-grow">
-        <TicketContainer tickets={tickets} />
+        {tickets.length > 0 ? (
+          <TicketContainer tickets={tickets} />
+        ) : (
+          <h1 className="text-center mt-5">
+            Proceed to Ticket Page to add Ticket(s)
+          </h1>
+        )}
       </div>
     </section>
   );

@@ -24,9 +24,9 @@ const Ticket: React.FC<TicketProps> = ({
 }) => {
   return (
     <Link href={`/TicketPage/${id}`}>
-      <div className="flex flex-col align-center justify-between border border-black min-h-64 rounded-md px-4 py-2">
+      <div className="flex flex-col align-center justify-between border-2 border-text-200 opacity-85 hover:border-text-100 hover:bg-text-200 min-h-64 rounded-md px-4 py-2 shadow-xl">
         <div className="flex justify-between items-center">
-          <h3 className="flex-1">{title}</h3>
+          <h4 className="flex-1">{title}</h4>
           <p>
             {formatTimestamp(dateFrom)} - {formatTimestamp(dateTo)}
           </p>
