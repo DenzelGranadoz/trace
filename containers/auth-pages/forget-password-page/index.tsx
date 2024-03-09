@@ -1,25 +1,15 @@
 'use client';
-import React, { useState, useEffect } from 'react';
-import { signIn, useSession } from 'next-auth/react';
-import Link from 'next/link';
+import { isValidEmail } from '@/utils/regex';
 import { useRouter } from 'next/navigation';
+import React, { useState, useEffect } from 'react';
 
-const ForgetPassword = () => {
+const ForgetPasswordContainer = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     email: '',
-    password: '',
   });
+
   const [errorMessage, setErrorMessage] = useState('');
-  const router = useRouter();
-
-  const { status: sessionStatus } = useSession();
-
-  useEffect(() => {
-    if (sessionStatus === 'authenticated') {
-      router.push('/');
-      router.refresh();
-    }
-  }, [sessionStatus, router]);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -31,24 +21,22 @@ const ForgetPassword = () => {
     }));
   };
 
-  const isValidEmail = (email) => {
-    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-    return emailRegex.test(email);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const { email } = formData;
 
     if (!isValidEmail(email)) {
-      setErrorMessage('Email is Invalid');
+      setErrorMessage('Email is invalid');
       return;
     }
 
     const res = await fetch('/api/forget-password', {
       method: 'POST',
       body: JSON.stringify({ formData }),
-      'content-type': 'application/json',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
 
     if (!res.ok) {
@@ -61,7 +49,7 @@ const ForgetPassword = () => {
   };
 
   return (
-    <div className="w-full h-full flex justify-center items-center bg-gray-200">
+    <section className="w-full h-full flex justify-center items-center bg-gray-200">
       <div className="lg:w-1/2 sm:w-3/4 xl:w-1/3  h-3/5 border p-20 flex flex-col justify-between bg-gray-100">
         <div>
           <h1 className="text-center text-5xl text-slate-600">
@@ -90,19 +78,19 @@ const ForgetPassword = () => {
           />
           {errorMessage && <p className="text-red-400 my-2">{errorMessage}</p>}
         </form>
-
+        {/* 
         <div className="h-5 w-full flex justify-center ">
           <span className="text-slate-600 mr-1">Already have an account?</span>
           <Link
-            href="/ForgetPassword"
+            href="/Login"
             className="text-blue-400 hover:text-slate-400"
           >
-            ForgetPassword Here
+            Login Here
           </Link>
-        </div>
+        </div> */}
       </div>
-    </div>
+    </section>
   );
 };
 
-export default ForgetPassword;
+export default ForgetPasswordContainer;
