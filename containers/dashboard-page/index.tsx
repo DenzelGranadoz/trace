@@ -11,6 +11,7 @@ const DashBoard = async () => {
   const session = await getSession();
   const data = await getTickets();
   const tickets: TicketDetails[] = data.tickets || [];
+  const activeTickets = tickets.filter((ticket) => ticket.active);
 
   return (
     <section className="rounded-xl bg-text-100 w-full h-full flex flex-col">
@@ -19,8 +20,8 @@ const DashBoard = async () => {
         <p className="border border-black">search bar component</p>
       </div>
       <div className="flex-grow">
-        {tickets.length > 0 ? (
-          <TicketContainer tickets={tickets} />
+        {activeTickets.length > 0 ? (
+          <TicketContainer tickets={activeTickets} />
         ) : (
           <h1 className="text-center mt-5">
             Proceed to Ticket Page to add Ticket(s)

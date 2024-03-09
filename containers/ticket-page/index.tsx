@@ -30,6 +30,7 @@ const TicketPageSection: React.FC<TicketPageProps> = async ({ params }) => {
       priority: 'Low',
       status: 'Todo',
       email: session?.user?.email,
+      active: true,
     };
   }
 

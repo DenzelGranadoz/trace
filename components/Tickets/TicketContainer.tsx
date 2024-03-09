@@ -21,6 +21,7 @@ const TicketContainer: React.FC<TicketContainerProps> = ({ tickets }) => {
           description={ticket.description}
           status={ticket.status}
           priority={ticket.priority}
+          active={ticket.active}
         />
       ))}
     </div>

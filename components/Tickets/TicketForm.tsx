@@ -8,6 +8,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import DeleteBlock from '@/components/DeleteBlock';
 
 import { TicketDetails } from '@/types/TicketDetails';
+import { LuArchive } from 'react-icons/lu';
 
 interface TicketFormProps {
   ticket: TicketDetails;
@@ -16,8 +17,16 @@ interface TicketFormProps {
 
 const TicketForm: React.FC<TicketFormProps> = ({ ticket, editEnabled }) => {
   const router = useRouter();
-  const { title, description, dateFrom, dateTo, priority, status, email } =
-    ticket;
+  const {
+    title,
+    description,
+    dateFrom,
+    dateTo,
+    priority,
+    status,
+    email,
+    active,
+  } = ticket;
 
   const formTicketData = {
     title,
@@ -27,6 +36,7 @@ const TicketForm: React.FC<TicketFormProps> = ({ ticket, editEnabled }) => {
     priority,
     status,
     email,
+    active,
   };
 
   const [formData, setFormData] = useState(formTicketData);
@@ -78,6 +88,23 @@ const TicketForm: React.FC<TicketFormProps> = ({ ticket, editEnabled }) => {
     if (!res.ok) {
       throw new Error('Failed to create Ticket.');
     }
+  };
+
+  const archiveTicket = async () => {
+    const res = await fetch(`/api/Tickets/${ticket._id}`, {
+      method: 'PATCH',
+      body: JSON.stringify({ formData }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!res.ok) {
+      throw new Error('Failed to archive Ticket');
+    }
+
+    router.push('/Archive');
+    router.refresh();
   };
 
   return (
@@ -166,6 +193,11 @@ const TicketForm: React.FC<TicketFormProps> = ({ ticket, editEnabled }) => {
         className="btn "
         value={editEnabled ? 'Update Ticket' : 'Create Ticket'}
       />
+      {formData.status === 'Completed' && (
+        <div className="hover: cursor-pointer">
+          <LuArchive size={30} color="black" onClick={archiveTicket} />
+        </div>
+      )}
     </form>
   );
 };

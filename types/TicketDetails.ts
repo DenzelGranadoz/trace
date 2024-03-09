@@ -7,6 +7,7 @@ export type TicketDetails = {
   priority: string;
   status: string;
   email: string;
+  active?: Boolean;
   createdAt?: string;
   updatedAt?: string;
   __v?: number;
