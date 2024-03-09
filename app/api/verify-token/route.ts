@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import User from '@/app/(models)/User';
+import User from '@/lib/models/User';
 import crypto from 'crypto';
 
 export async function POST(req) {
@@ -13,10 +13,11 @@ export async function POST(req) {
   });
 
   if (!user) {
-    return new NextResponse(
-      { message: 'Invalid token or has expired' },
-      { status: 400 }
-    );
+    const errorResponse = {
+      message: 'Invalid token or token has expired!',
+    };
+    const body = JSON.stringify(errorResponse);
+    return new NextResponse(body, { status: 400 });
   }
 
   return new NextResponse(JSON.stringify(user), { status: 200 });

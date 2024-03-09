@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import User from '@/app/(models)/User';
+import User from '@/lib/models/User';
 import bcrypt from 'bcrypt';
 
 export async function POST(req) {
@@ -15,12 +15,16 @@ export async function POST(req) {
 
   try {
     await userFound.save();
-    return new NextResponse(
-      { message: 'User password has been updated' },
-      { status: 200 }
-    );
+    const successResponse = {
+      message: 'User password has been updated',
+    };
+    const body = JSON.stringify(successResponse);
+    return new NextResponse(body, { status: 200 });
   } catch (error) {
-    console.log('error foun', error);
-    return new NextResponse({ 'error:': error }, { status: 500 });
+    const errorResponse = {
+      message: 'Error',
+    };
+    const body = JSON.stringify(errorResponse);
+    return new NextResponse(body, { status: 500 });
   }
 }
