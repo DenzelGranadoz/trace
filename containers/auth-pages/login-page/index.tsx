@@ -28,7 +28,7 @@ const LoginSection = () => {
     e.preventDefault();
     const { email, password } = formData;
 
-    if (isValidEmail(email)) {
+    if (!isValidEmail(email)) {
       setErrorMessage('Email is Invalid');
       return;
     }
@@ -39,7 +39,7 @@ const LoginSection = () => {
     }
 
     const res = await signIn('credentials', {
-      // redirect: false,
+      redirect: false,
       email,
       password,
     });
@@ -91,7 +91,7 @@ const LoginSection = () => {
 
           <div className="w-full text-right mt-6 mb-3.5  flex justify-end ">
             <Link
-              href="/Register"
+              href="/Forget-Password"
               className="text-blue-400 hover:text-slate-400"
             >
               Forget password?
