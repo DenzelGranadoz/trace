@@ -1,12 +1,14 @@
 import TicketContainer from '@/components/Tickets/TicketContainer';
 import { TicketDetails } from '@/types/TicketDetails';
 import { getTickets } from '@/utils/requests';
+import { getSession } from '@/utils/session';
 
 const ArchiveContainer = async ({}) => {
+  const session = await getSession();
   const data = await getTickets();
   const tickets: TicketDetails[] = data.tickets || [];
   const archivedTickets = tickets.filter((ticket) => !ticket.active);
-
+  console.log(session);
   return (
     <section className="rounded-xl bg-text-100 w-full h-full">
       <div className="flex justify-center px-10 py-6 border-b-2 border-text-200">
