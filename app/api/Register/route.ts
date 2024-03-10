@@ -40,16 +40,16 @@ export async function POST(req) {
 
     userData.activateToken = activateUserToken;
     userData.activateTokenExpire = activateTokenExpire;
-    const resetUrl = `localhost:3000/activate/${resetToken}`;
+    const resetUrl = `http://localhost:3000/api/activate/${resetToken}`;
 
     const body2 =
       'Activate your account by clicking on following url: ' + resetUrl;
 
     const msg = {
       to: userData.email,
-      from: 'denz.granadoz21@gmail.com',
+      from: 'zelgranadoz@gmail.com',
       subject: 'Activate Account',
-      text: body2,
+      html: body2,
     };
 
     sgMail.setApiKey(process.env.SENDGRID_API_KEY || '');

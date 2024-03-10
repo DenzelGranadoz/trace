@@ -41,7 +41,7 @@ export async function POST(req) {
 
     const msg = {
       to: userData.email,
-      from: 'denz.granadoz21@gmail.com',
+      from: 'zelgranadoz@gmail.com',
       subject: 'Reset Password',
       text: body2,
     };
