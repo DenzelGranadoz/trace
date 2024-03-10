@@ -1,4 +1,4 @@
-import User from '@/app/(models)/User';
+import User from '@/lib/models/User';
 import { redirect } from 'next/navigation';
 import { NextResponse } from 'next/server';
 import crypto from 'crypto';
