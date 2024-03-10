@@ -1,8 +1,9 @@
 import '../styles/globals.css';
 import { Lato } from 'next/font/google';
 
-import AuthProvider from '@/lib/AuthProvider';
 import SideBar from '@/components/Nav/SideBar';
+import AuthProvider from '@/lib/providers/AuthProvider';
+import QueryProvider from '@/lib/providers/QueryProvider';
 
 const inter = Lato({
   subsets: ['latin'],
@@ -22,10 +23,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <AuthProvider>
-        <body className={`${inter.className} flex h-screen w-screen p-8`}>
-          <SideBar />
-          {children}
-        </body>
+        <QueryProvider>
+          <body className={`${inter.className} flex h-screen w-screen p-8`}>
+            <SideBar />
+            {children}
+          </body>
+        </QueryProvider>
       </AuthProvider>
     </html>
   );
