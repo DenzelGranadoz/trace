@@ -39,3 +39,24 @@ export async function PUT(req, { params }) {
     return NextResponse.json({ message: 'Error', error }, { status: 500 });
   }
 }
+
+export async function PATCH(req, { params }) {
+  try {
+    const { id } = params;
+    // const body = await req.json();
+    // const ticketData = body.formData;
+
+    const foundTicket = await Ticket.findOne({ _id: id });
+
+    foundTicket.active = false;
+
+    await foundTicket.save();
+
+    return NextResponse.json(
+      { message: 'Ticket has been archived' },
+      { status: 200 }
+    );
+  } catch (error) {
+    return NextResponse.json({ message: 'Error', error }, { status: 500 });
+  }
+}
