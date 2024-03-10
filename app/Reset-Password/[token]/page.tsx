@@ -24,7 +24,9 @@ const ResetPassword = ({ params }) => {
         const res = await fetch('/api/verify-token', {
           method: 'POST',
           body: JSON.stringify({ token: params.token }),
-          'content-type': 'application/json',
+          headers: {
+            'Content-Type': 'application/json',
+          },
         });
 
         if (res.status === 400) {
@@ -81,7 +83,9 @@ const ResetPassword = ({ params }) => {
     const res = await fetch('/api/reset-password', {
       method: 'POST',
       body: JSON.stringify({ formData }),
-      'content-type': 'application/json',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
 
     if (res.status === 400) {
