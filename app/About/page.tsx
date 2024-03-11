@@ -1,4 +1,4 @@
-import AboutSection from '../../containers/about-page';
+import AboutSection from '@/containers/about-page';
 
 const About = () => {
   return (

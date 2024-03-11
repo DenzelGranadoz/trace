@@ -1,4 +1,4 @@
-import { SideBarDetail } from '../../types/SideBarDetail';
+import { SideBarDetail } from '@/types/SideBarDetail';
 
 export const sideBarDetails: SideBarDetail = {
   heading: 'Trace',
