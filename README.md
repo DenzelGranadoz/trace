@@ -1,4 +1,4 @@
-Hi there! I'm in the process of converting this project to TypeScript :D 
+Hi there! I'm in the process of making this project responsive
 
 ## Getting Started
 
