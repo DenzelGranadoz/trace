@@ -109,7 +109,7 @@ const TicketForm: React.FC<TicketFormProps> = ({ ticket, editEnabled }) => {
 
   return (
     <form
-      className="w-2/5 flex justify-center align-center flex-col border border-black"
+      className="w-4/5 lg:w-3/5 h-11/12 flex justify-center align-center flex-col border border-bg-300"
       method="post"
       onSubmit={handleSubmit}
     >
@@ -137,8 +137,8 @@ const TicketForm: React.FC<TicketFormProps> = ({ ticket, editEnabled }) => {
         value={formData.description}
         maxLength={120}
       />
-      <div className="flex w-full">
-        <div className="flex-1 my-2">
+      <div className="flex flex-col sm:flex-row w-full">
+        <div className="lg:flex lg:flex-col flex-1 my-2">
           <label>Start Date</label>
           <DatePicker
             // showIcon
@@ -154,7 +154,7 @@ const TicketForm: React.FC<TicketFormProps> = ({ ticket, editEnabled }) => {
             endDate={formData.dateTo}
           />
         </div>
-        <div className="flex-1 my-2">
+        <div className="lg:flex lg:flex-col flex-1 my-2">
           <label>End Date</label>
           <DatePicker
             // showIcon

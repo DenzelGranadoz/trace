@@ -46,9 +46,9 @@ const DashBoard = () => {
   const activeTickets = isLoading ? [] : data.filter((ticket) => ticket.active);
 
   return (
-    <section className="rounded-xl bg-text-100 w-full h-full flex flex-col">
-      <div className="flex justify-between px-10 py-6 border-b-2 border-text-200">
-        <h4 className="">Hi {session?.user?.name}, welcome back</h4>
+    <section className="rounded-xl bg-text-100 w-full h-full flex flex-col overflow-auto">
+      <div className="flex justify-between items-center px-10 py-6 border-b-2 border-text-200">
+        <h4 className="flex-1 pr-4 ">Hi {session?.user?.name}, welcome back</h4>
         <InputField
           name="search"
           type="text"

@@ -10,7 +10,7 @@ interface TicketContainerProps {
 
 const TicketContainer: React.FC<TicketContainerProps> = ({ tickets }) => {
   return (
-    <div className="grid grid-cols-3 p-6 gap-6">
+    <div className="grid md:grid-cols-2 xl:grid-cols-3 p-6 gap-6">
       {tickets.map((ticket) => (
         <Ticket
           key={ticket._id}

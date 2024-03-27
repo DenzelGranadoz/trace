@@ -33,16 +33,22 @@ const ArchiveContainer = () => {
     : data.filter((ticket) => !ticket.active);
 
   return (
-    <section className="rounded-xl bg-text-100 w-full h-full">
+    <section className="rounded-xl bg-text-100 w-full h-full overflow-auto">
       <div className="flex justify-center px-10 py-6 border-b-2 border-text-200">
         <h4 className="">Archived Tickets</h4>
       </div>
-      {archivedTickets.length > 0 ? (
-        <TicketContainer tickets={archivedTickets} />
+      {isLoading ? (
+        <h1>Fetching Tickets</h1>
       ) : (
-        <h1 className="text-center mt-5">
-          Proceed to Ticket Page to add Ticket(s)
-        </h1>
+        <>
+          {archivedTickets.length > 0 ? (
+            <TicketContainer tickets={archivedTickets} />
+          ) : (
+            <h1 className="text-center mt-5">
+              Proceed to Ticket Page to add Ticket(s)
+            </h1>
+          )}
+        </>
       )}
     </section>
   );

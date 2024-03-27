@@ -1,17 +1,25 @@
 import React from 'react';
+import { getSession } from '@/utils/session';
 
-const AboutSection = () => {
+const AboutSection = async () => {
+  const session = await getSession();
   return (
-    <section className="rounded-xl bg-text-100 border border-black w-full h-full flex flex-col justify-center items-center">
-      <div className="h-1/6 w-full flex justify-center items-center flex-col gap-4 border-b-2 border-bg-300">
-        <p className="text-xl">Log In / Register to access all features</p>
-      </div>
+    <section className="rounded-md bg-text-100 border border-black w-full h-full flex flex-col justify-center items-center">
+      {!session && (
+        <div className="h-1/6 w-full flex justify-center items-center flex-col gap-4 border-b-2 border-bg-300">
+          <p className="text-xl">Log In / Register to access all features</p>
+        </div>
+      )}
       <div className="flex-grow w-full">
-        <h1 className="text-7xl p-[2rem] text-center">Welcome to Trace</h1>
-        <div className="px-24 flex flex-col gap-10">
-          <h3>Trace is a to-do ticketing app</h3>
+        <h1 className="text-5xl p-4 md:text-7xl md:p-[2rem] text-center">
+          Welcome to Trace
+        </h1>
+        <div className="px-4 md:px-24 flex flex-col gap-10">
+          <h3 className="text-center italic font-light">
+            Trace is a to-do ticketing app
+          </h3>
           <div>
-            <p>
+            <p className="text-2xl">
               To be well organized and productive, having a to-do list will
               ensure that:
             </p>

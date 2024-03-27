@@ -35,7 +35,7 @@
   }
 
   form {
-    @apply rounded-xl p-4;
+    @apply rounded-sm p-4;
   }
 
   label {
@@ -45,7 +45,7 @@
   input,
   select,
   textarea {
-    @apply block bg-gray-200 my-2 px-4 py-3 rounded text-xl max-h-40;
+    @apply block bg-gray-200 my-2 px-4 py-3 rounded text-xl min-h-10 max-h-40;
   }
 }
 

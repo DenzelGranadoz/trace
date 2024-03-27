@@ -33,6 +33,7 @@ const InputField: React.FC<InputFieldProps> = ({
         onChange={onChange}
         maxLength={maxLength}
         required={required}
+        className="flex-1 w-full"
       />
     </div>
   );
