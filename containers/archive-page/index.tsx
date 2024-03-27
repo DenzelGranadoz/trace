@@ -13,7 +13,7 @@ const ArchiveContainer = () => {
 
   useEffect(() => {
     if (sessionStatus != 'authenticated') {
-      redirect('/');
+      redirect('/About');
     }
   });
 

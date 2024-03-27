@@ -14,7 +14,7 @@ const DashBoard = () => {
 
   useEffect(() => {
     if (sessionStatus != 'authenticated') {
-      redirect('/');
+      redirect('/About');
     }
   });
 
