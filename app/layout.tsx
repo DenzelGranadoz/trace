@@ -24,7 +24,9 @@ export default function RootLayout({
     <html lang="en">
       <AuthProvider>
         <QueryProvider>
-          <body className={`${inter.className} flex h-screen w-screen p-8`}>
+          <body
+            className={`${inter.className} flex flex-col md:flex-row h-screen w-screen p-8`}
+          >
             <SideBar />
             {children}
           </body>
