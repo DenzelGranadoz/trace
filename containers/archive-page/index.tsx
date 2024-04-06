@@ -15,7 +15,7 @@ const ArchiveContainer = () => {
     if (sessionStatus != 'authenticated') {
       redirect('/About');
     }
-  });
+  }, [sessionStatus]);
 
   const { isLoading, error, data } = useTickets(session?.user?.email);
 

@@ -1,8 +1,10 @@
 import React from 'react';
-import { getSession } from '@/utils/session';
+import { getServerSession } from 'next-auth';
+import { options } from '@/app/api/auth/[...nextauth]/options';
 
 const AboutSection = async () => {
-  const session = await getSession();
+  const session = getServerSession(options);
+
   return (
     <section className="rounded-md bg-text-100 border border-black w-full h-full flex flex-col justify-center items-center">
       {!session && (

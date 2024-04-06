@@ -16,7 +16,7 @@ const DashBoard = () => {
     if (sessionStatus != 'authenticated') {
       redirect('/About');
     }
-  });
+  }, [sessionStatus]);
 
   const [searchQuery, setSearchQuery] = useState('');
   const [searchFiltered, setSearchFiltered] = useState([]);
