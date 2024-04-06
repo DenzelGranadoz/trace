@@ -54,7 +54,7 @@ const LoginSection = () => {
 
   return (
     <section className="rounded-xl bg-text-100 w-full h-full flex justify-center items-center">
-      <div className="lg:w-1/2 sm:w-3/4 xl:w-1/3  h-3/5 border p-20 flex flex-col justify-between bg-gray-100">
+      <div className="lg:w-1/2 sm:w-3/4 xl:w-3/5 h-3/5 border p-5 sm:p-10 lg:p-20 flex flex-col justify-between bg-gray-100">
         <div>
           <h1 className="text-center text-5xl text-slate-600">Welcome Back</h1>
           <h4 className="text-center text-slate-600">
@@ -102,9 +102,8 @@ const LoginSection = () => {
             value="Login"
             className="m-0 p-3 w-full bg-blue-400 hover:bg-blue-100 hover:cursor-pointer"
           />
-          {errorMessage && <p className="text-red-400 my-2">{errorMessage}</p>}
         </form>
-        <div className="h-20 flex flex-col text-center">
+        {/* <div className="h-20 flex flex-col text-center">
           <p className="text-slate-600">Or log in with:</p>
           <div className="flex-1 flex pt-2">
             <button
@@ -132,7 +131,7 @@ const LoginSection = () => {
               Discord
             </button>
           </div>
-        </div>
+        </div> */}
         <div className="h-5 w-full flex justify-center ">
           <span className="text-slate-600 mr-1">No account yet?</span>
           <Link href="/Register" className="text-blue-400 hover:text-slate-400">

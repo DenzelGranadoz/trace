@@ -17,7 +17,7 @@ const LogoutSection = () => {
   }, [sessionStatus, router]);
 
   return (
-    <section className="rounded-xl w-full bg-text-100 flex justify-center items-center">
+    <section className="rounded-xl w-full h-full bg-text-100 flex justify-center items-center">
       <div className="p-6 border border-text-200 shadow-inner rounded-md">
         <h2 className="my-4">Click on the button to logout</h2>
         <div>

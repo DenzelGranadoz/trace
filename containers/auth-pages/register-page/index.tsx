@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { isValidEmail } from '@/utils/regex';
+import Link from 'next/link';
 
 interface RegisterSectionProps {}
 
@@ -63,15 +64,18 @@ const RegisterSection: React.FC<RegisterSectionProps> = () => {
 
   return (
     <section className="rounded-xl bg-text-100 flex justify-center items-center w-full h-full">
-      <form
-        onSubmit={handleSubmit}
-        method="post"
-        className="border border-black"
-      >
+      <div className="lg:w-1/2 sm:w-3/4 xl:w-3/5 h-7/12 border p-5 sm:p-10 lg:p-20 flex flex-col justify-between bg-gray-100">
         <div>
-          <h1>Create Account</h1>
+          <h1 className="text-center text-5xl text-slate-600">Register</h1>
+          <h4 className="text-center text-slate-600">
+            Please log in to continue
+          </h4>
         </div>
-        <div>
+        <form
+          onSubmit={handleSubmit}
+          method="post"
+          className="flex flex-col align-center justify-center p-0"
+        >
           <label>Name</label>
           <input
             id="name"
@@ -102,10 +106,20 @@ const RegisterSection: React.FC<RegisterSectionProps> = () => {
             value={formData.password}
             placeholder="Password"
           />
-          {errorMessage && <p>{errorMessage}</p>}
-          <input type="submit" value="Register" className="btn" />
+          <input
+            type="submit"
+            value="Register"
+            className="my-6 p-3 w-full bg-blue-400 hover:bg-blue-100 hover:cursor-pointer"
+          />
+          {errorMessage && <p className="text-red-400 my-2">{errorMessage}</p>}
+        </form>
+        <div className="h-5 w-full flex justify-center ">
+          <span className="text-slate-600 mr-1">Already have an account?</span>
+          <Link href="/Login" className="text-blue-400 hover:text-slate-400">
+            Login
+          </Link>
         </div>
-      </form>
+      </div>
     </section>
   );
 };

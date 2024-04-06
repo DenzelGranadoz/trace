@@ -108,7 +108,7 @@ const ResetPassword = ({ params }) => {
 
   return (
     <div className="w-full h-full flex justify-center items-center bg-gray-200">
-      <div className="lg:w-1/2 sm:w-3/4 xl:w-1/3  h-3/5 border p-20 flex flex-col justify-between bg-gray-100">
+      <div className="lg:w-1/2 sm:w-3/4 xl:w-3/5 h-7/12 border p-5 sm:p-10 lg:p-20 flex flex-col justify-between bg-gray-100">
         <div>
           <h1 className="text-center text-5xl text-slate-600">
             Reset Password
@@ -118,12 +118,12 @@ const ResetPassword = ({ params }) => {
           className="flex flex-col align-center justify-center p-0"
           onSubmit={handleSubmit}
         >
-          <label className="mb-1.5 text-slate-600">Password</label>
+          <label className="mb-1.5 text-slate-600">New Password</label>
           <input
             id="password"
             name="password"
             type="password"
-            placeholder="Password"
+            placeholder="New Password"
             onChange={handleChange}
             value={formData.password}
             required
@@ -133,17 +133,10 @@ const ResetPassword = ({ params }) => {
             type="submit"
             value="Reset Password"
             disabled={errorMessage.length > 0}
-            className="m-0 p-3 w-full bg-blue-400 hover:bg-blue-100 hover:cursor-pointer"
+            className="my-6 p-3 w-full bg-blue-400 hover:bg-blue-100 hover:cursor-pointer"
           />
           {errorMessage && <p className="text-red-400 my-2">{errorMessage}</p>}
         </form>
-
-        <div className="h-5 w-full flex justify-center ">
-          <span className="text-slate-600 mr-1">Already have an account?</span>
-          <Link href="/Login" className="text-blue-400 hover:text-slate-400">
-            Login here
-          </Link>
-        </div>
       </div>
     </div>
   );
