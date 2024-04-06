@@ -18,9 +18,8 @@ This is a To-Do Ticketing Tracking App to learn about NextJS, deployed on Vercel
 - TypeScript
 - MongoDB
 - TailwindCSS
-- NextAuth
-- React Query
 - RESTful APIs
+- NextAuth
 
 ## Getting Started
 
@@ -62,21 +61,31 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 
 - Responsive (Phone, Tablet, and Desktop friendly)
 - There are 5 Main Pages
-  -\* About Page
+
+#### About Page
+
 - Just a simple reminder of the importance of listing to-dos
 - Serves as the homepage when user is not logged in
-  -\* Dashboard Page
+
+#### Dashboard Page
+
 - Contains all tickets(to-do) fetched from the database
 - Has a search bar to filter specific tickets
 - Each ticket has a description, priority level, name, date created and estimated date of completion, status(progress).
-  -\* Ticket Page
+
+#### Ticket Page
+
 - Forms to take in data about ticket to be saved in the database
 - Edit a ticket
 - Delete a ticket
 - Archive a ticket
-  -\* Archived Page
+
+#### Archived Page
+
 - User has the option to archive a ticket once status has been set to completed
-  -\* Auth Pages
+
+#### Auth Pages
+
 - Login Page
 - Logout Page
 - Register Page
