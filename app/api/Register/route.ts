@@ -1,8 +1,8 @@
-import { NextResponse } from 'next/server';
-import User from '@/lib/models/User';
-import bcrypt from 'bcrypt';
-import crypto from 'crypto';
-import sgMail from '@sendgrid/mail';
+import { NextResponse } from "next/server";
+import User from "@/lib/models/User";
+import bcrypt from "bcrypt";
+import crypto from "crypto";
+import sgMail from "@sendgrid/mail";
 
 export async function POST(req) {
   try {
@@ -11,7 +11,7 @@ export async function POST(req) {
 
     if (!userData?.email || !userData.password) {
       return NextResponse.json(
-        { message: 'All fields are required' },
+        { message: "All fields are required" },
         { status: 400 }
       );
     }
@@ -22,7 +22,7 @@ export async function POST(req) {
 
     if (duplicate) {
       return NextResponse.json(
-        { message: 'Email already in use' },
+        { message: "Email already in use" },
         { status: 409 }
       );
     }
@@ -30,35 +30,35 @@ export async function POST(req) {
     const hashPassword = await bcrypt.hash(userData.password, 10);
     userData.password = hashPassword;
 
-    const resetToken = crypto.randomBytes(20).toString('hex');
+    const resetToken = crypto.randomBytes(20).toString("hex");
     const activateUserToken = crypto
-      .createHash('sha256')
+      .createHash("sha256")
       .update(resetToken)
-      .digest('hex');
+      .digest("hex");
 
     const activateTokenExpire = Date.now() + 3600 * 1000 * 10;
 
     userData.activateToken = activateUserToken;
     userData.activateTokenExpire = activateTokenExpire;
-    const resetUrl = `http://localhost:3000/api/activate/${resetToken}`;
+    const resetUrl = `${process.env.API_URL}/api/activate/${resetToken}`;
 
     const body2 =
-      'Activate your account by clicking on following url: ' + resetUrl;
+      "Activate your account by clicking on following url: " + resetUrl;
 
     const msg = {
       to: userData.email,
-      from: 'zelgranadoz@gmail.com',
-      subject: 'Activate Account',
+      from: "zelgranadoz@gmail.com",
+      subject: "Activate Account",
       html: body2,
     };
 
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY || '');
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY || "");
 
     sgMail
       .send(msg)
       .then(() => {
         const successResponse = {
-          message: 'Reset Password email is sent!',
+          message: "Reset Password email is sent!",
         };
         const body = JSON.stringify(successResponse);
         return new NextResponse(body, { status: 200 });
@@ -69,7 +69,7 @@ export async function POST(req) {
         await userData.save();
 
         return NextResponse.json(
-          { message: 'Failed sending email', error },
+          { message: "Failed sending email", error },
           { status: 400 }
         );
       });
@@ -77,10 +77,10 @@ export async function POST(req) {
     await User.create(userData);
 
     return NextResponse.json(
-      { message: 'User Created Successfully' },
+      { message: "User Created Successfully" },
       { status: 201 }
     );
   } catch (error) {
-    return NextResponse.json({ message: 'Error', error }, { status: 500 });
+    return NextResponse.json({ message: "Error", error }, { status: 500 });
   }
 }

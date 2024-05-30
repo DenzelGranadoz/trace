@@ -1,5 +1,5 @@
-import { NextResponse } from 'next/server';
-import { getSession } from './session';
+import { NextResponse } from "next/server";
+import { getSession } from "./session";
 
 export const getTickets = async (): Promise<any> => {
   try {
@@ -7,20 +7,20 @@ export const getTickets = async (): Promise<any> => {
     const { email } = session.user;
 
     const res = await fetch(
-      `http://localhost:3000/api/Tickets/?email=${email}`,
+      `${process.env.API_URL}/api/Tickets/?email=${email}`,
       {
-        cache: 'no-store',
+        cache: "no-store",
       }
     );
 
     if (!res.ok) {
-      throw new Error('Failed to fetch tickets');
+      throw new Error("Failed to fetch tickets");
     }
 
     return res.json();
   } catch (error) {
     return NextResponse.json(
-      { message: 'Error fetching tickets' },
+      { message: "Error fetching tickets" },
       { status: 500 }
     );
   }
@@ -28,19 +28,19 @@ export const getTickets = async (): Promise<any> => {
 
 export const getTicketById = async (id: string): Promise<any> => {
   try {
-    const res = await fetch(`http://localhost:3000/api/Tickets/${id}`, {
-      cache: 'no-store',
+    const res = await fetch(`${process.env.API_URL}/api/Tickets/${id}`, {
+      cache: "no-store",
     });
 
     if (!res.ok) {
-      throw new Error('Ticket not found');
+      throw new Error("Ticket not found");
     }
 
     return await res.json();
   } catch (error) {
-    console.error('Error fetching ticket by ID:', error);
+    console.error("Error fetching ticket by ID:", error);
     return NextResponse.json(
-      { message: 'Error fetching ticket by ID' },
+      { message: "Error fetching ticket by ID" },
       { status: 500 }
     );
   }
